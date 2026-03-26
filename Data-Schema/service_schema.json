@@ -1,0 +1,31 @@
+{
+  "name": "",
+  "description": "",
+  "service_type": "",
+  "website_url": "",
+  "phone_number": "",
+  "email_address": "",
+  "attention": "",
+  "physical_address": {
+    "street": "",
+    "city": "",
+    "region": "",
+    "postcode": ""
+  },
+  "geo": {
+    "latitude": null,
+    "longitude": null
+  },
+  "schedule": "",
+  "accessibility": "",
+  "costs": "",
+  "demographics": "",
+  "specialist_support": [],
+  "complex_needs_support": "",
+  "pet_policy": "",
+  "immigration_status": "",
+  "referral_process": "",
+  "source_url": "",
+  "date_collected": "",
+  "verification_status": "unverified"
+}
