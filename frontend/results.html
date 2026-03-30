@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Support Results</title>
+<link rel="manifest" href="./manifest.json" />
+<link rel="stylesheet" href="./styles.css" />
+</head>
+<body class="page-results">
+
+<div class="app-shell">
+
+<header class="app-header">
+<div>
+<h1 id="resultsTitle">Nearby support</h1>
+<p id="resultsSubtitle">Find the closest services</p>
+</div>
+<a class="back-link" href="./index.html">← Back</a>
+</header>
+
+<main class="page-content">
+
+<section class="results-toolbar">
+
+<input
+type="text"
+id="postcodeInput"
+placeholder="Enter postcode (e.g. SE1 2AA)"
+class="postcode-input"
+/>
+
+<button id="searchBtn" class="primary-btn">
+Find services
+</button>
+
+<div id="resultsStatus" class="status-box">
+Ready
+</div>
+
+</section>
+
+<section id="resultsList" class="results-list"></section>
+
+</main>
+
+</div>
+
+<script src="./app.js"></script>
+</body>
+</html>

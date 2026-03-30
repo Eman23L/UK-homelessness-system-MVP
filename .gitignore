@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+
+# Database
+*.db
+
+# Scraped / sample data
+sample-data/
+sample_data1/
+
+# IDE
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db

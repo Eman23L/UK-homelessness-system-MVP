@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homeless Support Map</title>
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+
+    .legend {
+      background: white;
+      padding: 10px 12px;
+      line-height: 1.6;
+      color: #333;
+      border-radius: 6px;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+      font-size: 14px;
+    }
+
+    .legend i {
+      width: 12px;
+      height: 12px;
+      float: left;
+      margin-right: 8px;
+      margin-top: 4px;
+      opacity: 0.85;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+  <script>
+    const map = L.map("map").setView([54.5, -3], 6);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors",
+      maxZoom: 19
+    }).addTo(map);
+
+    function getMarkerColor(provider) {
+      if (provider === "crisis") return "red";
+      if (provider === "shelter") return "green";
+      return "blue";
+    }
+
+    const markers = [];
+
+    fetch("http://127.0.0.1:5000/services")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log("Loaded services:", data);
+
+        data.forEach(service => {
+          if (service.latitude == null || service.longitude == null) {
+            return;
+          }
+
+          const marker = L.circleMarker(
+            [service.latitude, service.longitude],
+            {
+              radius: 8,
+              color: getMarkerColor(service.provider_name),
+              fillColor: getMarkerColor(service.provider_name),
+              fillOpacity: 0.8,
+              weight: 2
+            }
+          ).addTo(map);
+
+          marker.bindPopup(`
+            <strong>${service.name || "Unknown service"}</strong><br>
+            <strong>Provider:</strong> ${service.provider_name || "Unknown"}<br>
+            <strong>Type:</strong> ${service.service_type || "Unknown"}<br>
+            <strong>Postcode:</strong> ${service.postcode || "Not available"}<br>
+            <strong>Phone:</strong> ${service.phone_number || "Not available"}<br>
+            <strong>Address:</strong> ${service.physical_address || "Not available"}<br>
+            <strong>Opening times:</strong> ${service.opening_times || "Not available"}<br><br>
+            <a href="${service.source_url}" target="_blank" rel="noopener noreferrer">View details</a>
+          `);
+
+          markers.push(marker);
+        });
+
+        if (markers.length > 0) {
+          const group = L.featureGroup(markers);
+          map.fitBounds(group.getBounds(), { padding: [30, 30] });
+        }
+      })
+      .catch(error => {
+        console.error("Error loading services:", error);
+        alert("Could not load services from the API. Make sure Flask is running on http://127.0.0.1:5000");
+      });
+
+    const legend = L.control({ position: "bottomright" });
+
+    legend.onAdd = function () {
+      const div = L.DomUtil.create("div", "legend");
+      div.innerHTML = `
+        <div><i style="background: red;"></i> Crisis</div>
+        <div><i style="background: green;"></i> Shelter</div>
+        <div><i style="background: blue;"></i> Homeless England</div>
+      `;
+      return div;
+    };
+
+    legend.addTo(map);
+  </script>
+</body>
+</html>
