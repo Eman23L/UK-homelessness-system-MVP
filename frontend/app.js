@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:5000/services";
+const API_URL = "/services";
 
 /* ================= STORAGE ================= */
 

@@ -8,8 +8,6 @@ __pycache__/
 .venv/
 venv/
 
-# Database
-*.db
 
 # Scraped / sample data
 sample-data/
