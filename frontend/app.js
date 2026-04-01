@@ -52,18 +52,66 @@ Math.sin(dLon / 2) ** 2;
 return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
+function textIncludesAny(text, keywords) {
+const lower = (text || "").toLowerCase();
+return keywords.some(keyword => lower.includes(keyword));
+}
+
 function mapServiceToCategory(service) {
 const provider = (service.provider_name || "").toLowerCase();
 const type = (service.service_type || "").toLowerCase();
 const name = (service.name || "").toLowerCase();
+const description = (service.description || "").toLowerCase();
+const combined = `${type} ${name} ${description}`;
 
-if (provider === "crisis") return "crisis_support";
+if (provider === "crisis") {
+return "crisis_support";
+}
 
 if (
-type.includes("accommodation") ||
-type.includes("supported housing") ||
-name.includes("house") ||
-name.includes("foyer")
+textIncludesAny(combined, [
+"food",
+"meal",
+"meals",
+"breakfast",
+"lunch",
+"dinner",
+"food bank",
+"foodbank",
+"community kitchen",
+"soup kitchen"
+])
+) {
+return "food";
+}
+
+if (
+textIncludesAny(combined, [
+"medical",
+"health",
+"healthcare",
+"doctor",
+"nurse",
+"hospital",
+"clinic",
+"mental health",
+"gp",
+"outreach health"
+])
+) {
+return "medical";
+}
+
+if (
+textIncludesAny(combined, [
+"accommodation",
+"supported housing",
+"housing",
+"hostel",
+"foyer",
+"house",
+"residential"
+])
 ) {
 return "shelter";
 }
@@ -189,8 +237,11 @@ all.sort((a, b) => a.distance - b.distance);
 let filtered = all.filter(s => mapServiceToCategory(s) === category);
 
 if (!filtered.length) {
-status.textContent = "No exact matches — showing nearest services instead.";
+status.textContent =
+`No ${category.replace("_", " ")} services found yet — showing nearest services instead.`;
 filtered = all;
+} else {
+status.textContent = `${filtered.length} services shown`;
 }
 
 filtered.slice(0, 10).forEach(service => {
@@ -211,8 +262,6 @@ window.location.href = "./service.html";
 
 list.appendChild(card);
 });
-
-status.textContent = `${filtered.length} services shown`;
 }
 }
 
