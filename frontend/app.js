@@ -99,6 +99,14 @@ lng: data.result.longitude
 };
 }
 
+function buildGoogleMapsDirectionsUrl(originLat, originLng, destLat, destLng, mode = "walking") {
+return `https://www.google.com/maps/dir/?api=1&origin=${originLat},${originLng}&destination=${destLat},${destLng}&travelmode=${mode}`;
+}
+
+function buildGoogleMapsSearchUrl(destLat, destLng) {
+return `https://www.google.com/maps/search/?api=1&query=${destLat},${destLng}`;
+}
+
 /* ================= HOME ================= */
 
 function initHomePage() {
@@ -206,8 +214,6 @@ list.appendChild(card);
 
 status.textContent = `${filtered.length} services shown`;
 }
-
-registerServiceWorker();
 }
 
 /* ================= SERVICE ================= */
@@ -218,11 +224,15 @@ if (!mapEl) return;
 
 const service = getSelectedService();
 const userLocation = getUserLocation();
+const mapsButton = document.getElementById("openMapsBtn");
 
 if (!service) {
 document.getElementById("serviceName").textContent = "No service selected.";
 document.getElementById("serviceOrg").textContent = "No service selected.";
 document.getElementById("routeStatus").textContent = "Go back and choose a service first.";
+if (mapsButton) {
+mapsButton.style.display = "none";
+}
 return;
 }
 
@@ -239,6 +249,9 @@ document.getElementById("serviceSource").href = service.source_url || "#";
 
 if (service.latitude == null || service.longitude == null) {
 document.getElementById("routeStatus").textContent = "Location not available for this service.";
+if (mapsButton) {
+mapsButton.style.display = "none";
+}
 return;
 }
 
@@ -277,22 +290,30 @@ service.latitude,
 service.longitude
 );
 
-document.getElementById("routeStatus").textContent = `Distance: ${distance.toFixed(2)} km`;
+document.getElementById("routeStatus").textContent =
+`Approximate distance: ${distance.toFixed(2)} km`;
+
+if (mapsButton) {
+mapsButton.href = buildGoogleMapsDirectionsUrl(
+userLocation.lat,
+userLocation.lng,
+service.latitude,
+service.longitude,
+"walking"
+);
+mapsButton.style.display = "inline-block";
+}
 } else {
 document.getElementById("routeStatus").textContent = "Enter a postcode first to see directions.";
 map.setView([service.latitude, service.longitude], 13);
+
+if (mapsButton) {
+mapsButton.href = buildGoogleMapsSearchUrl(
+service.latitude,
+service.longitude
+);
+mapsButton.style.display = "inline-block";
 }
-
-registerServiceWorker();
-}
-
-/* ================= SERVICE WORKER ================= */
-
-function registerServiceWorker() {
-if ("serviceWorker" in navigator) {
-navigator.serviceWorker.register("./service-worker.js")
-.then(() => console.log("Service worker registered"))
-.catch(error => console.error("Service worker registration failed:", error));
 }
 }
 
