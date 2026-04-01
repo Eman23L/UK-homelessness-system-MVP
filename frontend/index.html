@@ -1,55 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Homeless Support Finder</title>
-  <link rel="manifest" href="./manifest.json" />
-  <meta name="theme-color" content="#1f2937" />
-  <link rel="stylesheet" href="./styles.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Homeless Support Finder</title>
+<link rel="manifest" href="./manifest.json" />
+<link rel="stylesheet" href="./styles.css" />
 </head>
-<body class="page-home">
-  <div class="app-shell">
-    <header class="app-header">
-      <h1>Homeless Support Finder</h1>
-      <p>Choose the kind of help you need</p>
-    </header>
+<body>
+<div class="app-shell">
+<header class="app-header">
+<div>
+<h1>Homeless Support Finder</h1>
+<p>Choose the kind of help you need</p>
+</div>
+</header>
 
-    <main class="page-content home-content">
-      <section class="hero-card">
-        <h2>Get support quickly</h2>
-        <p>Select a category to find the nearest available services.</p>
-      </section>
+<main class="home-main">
+<section class="category-grid">
+<button type="button" class="category-card" data-category="shelter">
+<h2>Shelter</h2>
+<p>Accommodation and housing support</p>
+</button>
 
-      <section class="category-grid">
-        <button class="category-card" data-category="shelter">
-          <span class="category-title">Shelter</span>
-          <span class="category-subtitle">Places to stay and accommodation support</span>
-        </button>
+<button type="button" class="category-card" data-category="advice">
+<h2>Advice</h2>
+<p>Housing advice and support services</p>
+</button>
 
-        <button class="category-card" data-category="advice">
-          <span class="category-title">Advice</span>
-          <span class="category-subtitle">Housing advice and support services</span>
-        </button>
+<button type="button" class="category-card" data-category="crisis_support">
+<h2>Crisis support</h2>
+<p>Urgent homelessness support services</p>
+</button>
 
-        <button class="category-card" data-category="crisis_support">
-          <span class="category-title">Crisis support</span>
-          <span class="category-subtitle">Urgent homelessness support services</span>
-        </button>
+<button type="button" class="category-card" data-category="food">
+<h2>Food</h2>
+<p>Food banks, meals, and community food support</p>
+</button>
 
-        <button class="category-card category-card-disabled" disabled>
-          <span class="category-title">Food</span>
-          <span class="category-subtitle">Coming later</span>
-        </button>
+<button type="button" class="category-card" data-category="medical">
+<h2>Medical</h2>
+<p>Health, outreach, and medical support services</p>
+</button>
+</section>
+</main>
+</div>
 
-        <button class="category-card category-card-disabled" disabled>
-          <span class="category-title">Medical</span>
-          <span class="category-subtitle">Coming later</span>
-        </button>
-      </section>
-    </main>
-  </div>
-
-  <script src="./app.js"></script>
+<script src="./app.js"></script>
 </body>
 </html>
