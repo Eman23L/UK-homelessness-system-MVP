@@ -119,4 +119,89 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    main()  cursor.execute(
+            """
+            INSERT INTO services (
+                source_url,
+                name,
+                description,
+                service_type,
+                provider_name,
+                website_url,
+                phone_number,
+                email_address,
+                physical_address,
+                postcode,
+                opening_times,
+                eligibility,
+                notes,
+                date_collected,
+                verification_status,
+                latitude,
+                longitude,
+                external_id,
+                slug,
+                needs_found,
+                needs_count
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                service.get("source_url"),
+                service.get("name"),
+                service.get("description"),
+                service.get("service_type"),
+                service.get("provider_name"),
+                service.get("website_url"),
+                service.get("phone_number"),
+                service.get("email_address"),
+                service.get("physical_address"),
+                service.get("postcode"),
+                service.get("opening_times"),
+                service.get("eligibility"),
+                service.get("notes"),
+                service.get("date_collected"),
+                service.get("verification_status"),
+                service.get("latitude"),
+                service.get("longitude"),
+                service.get("external_id"),
+                service.get("slug"),
+                service.get("needs_found"),
+                service.get("needs_count"),
+            ),
+        )
+
+conn.commit()
+    conn.commit()
+
+
+def main() -> None:
+print("Fetching Give Food food banks...")
+services = fetch_food_services()
+print(f"Fetched {len(services)} food services.")
+    print("Fetching Give Food food banks...")
+    services = fetch_food_services()
+    print(f"Fetched {len(services)} food services.")
+
+conn = get_connection()
+try:
+ensure_columns(conn)
+clear_existing_givefood_rows(conn)
+insert_services(conn, services)
+finally:
+conn.close()
+    conn = get_connection()
+    try:
+        ensure_columns(conn)
+        clear_existing_givefood_rows(conn)
+        insert_services(conn, services)
+    finally:
+        conn.close()
+
+print("Give Food import complete.")
+    print("Give Food import complete.")
+
+
+if __name__ == "__main__":
+main()
     main()

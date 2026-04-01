@@ -121,4 +121,89 @@ def fetch_food_services(timeout: int = 30) -> list[dict[str, Any]]:
             continue
         services.append(normalise_foodbank(item))
 
+    return services("name") or "Unknown food bank"
+network = item.get("network")
+description = "Food bank"
+if network:
+description = f"Food bank ({network})"
+    name = item.get("name") or "Unknown food bank"
+    network = item.get("network")
+    description = "Food bank"
+    if network:
+        description = f"Food bank ({network})"
+
+return {
+"source_url": source_url,
+"name": name,
+"description": description,
+"service_type": "food",
+"provider_name": "givefood",
+"website_url": homepage_url,
+"phone_number": item.get("phone") or item.get("secondary_phone"),
+"email_address": item.get("email"),
+"physical_address": item.get("address"),
+"postcode": item.get("postcode"),
+"opening_times": None,
+"eligibility": None,
+"notes": build_notes(item),
+"date_collected": datetime.now(timezone.utc).isoformat(),
+"verification_status": "api_import",
+"latitude": latitude,
+"longitude": longitude,
+"external_id": item.get("id"),
+"slug": item.get("slug"),
+"needs_found": needs.get("found"),
+"needs_count": needs.get("number"),
+}
+    return {
+        "source_url": source_url,
+        "name": name,
+        "description": description,
+        "service_type": "food",
+        "provider_name": "givefood",
+        "website_url": homepage_url,
+        "phone_number": item.get("phone") or item.get("secondary_phone"),
+        "email_address": item.get("email"),
+        "physical_address": item.get("address"),
+        "postcode": item.get("postcode"),
+        "opening_times": None,
+        "eligibility": None,
+        "notes": build_notes(item),
+        "date_collected": datetime.now(timezone.utc).isoformat(),
+        "verification_status": "api_import",
+        "latitude": latitude,
+        "longitude": longitude,
+        "external_id": item.get("id"),
+        "slug": item.get("slug"),
+        "needs_found": needs.get("found"),
+        "needs_count": needs.get("number"),
+    }
+
+
+def fetch_food_services(timeout: int = 30) -> list[dict[str, Any]]:
+response = requests.get(GIVEFOOD_FOODBANKS_URL, timeout=timeout)
+response.raise_for_status()
+    response = requests.get(GIVEFOOD_FOODBANKS_URL, timeout=timeout)
+    response.raise_for_status()
+
+data = response.json()
+    data = response.json()
+
+if not isinstance(data, list):
+raise ValueError("Unexpected Give Food response: expected a list of food banks")
+    if not isinstance(data, list):
+        raise ValueError("Unexpected Give Food response: expected a list of food banks")
+
+services: list[dict[str, Any]] = []
+for item in data:
+if not isinstance(item, dict):
+continue
+services.append(normalise_foodbank(item))
+    services: list[dict[str, Any]] = []
+    for item in data:
+        if not isinstance(item, dict):
+            continue
+        services.append(normalise_foodbank(item))
+
+return services
     return services
