@@ -1,51 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Homeless Support Finder</title>
-<link rel="manifest" href="./manifest.json" />
-<link rel="stylesheet" href="./styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support Finder</title>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-<div class="app-shell">
-<header class="app-header">
-<div>
-<h1>Homeless Support Finder</h1>
-<p>Choose the kind of help you need</p>
-</div>
-</header>
+  <header class="site-header">
+    <div class="container">
+      <h1>Find support near you</h1>
+      <p class="subtitle">Choose the kind of help you need, then use your location or postcode.</p>
+    </div>
+  </header>
 
-<main class="home-main">
-<section class="category-grid">
-<button type="button" class="category-card" data-category="shelter">
-<h2>Shelter</h2>
-<p>Accommodation and housing support</p>
-</button>
+  <main class="container">
+    <section class="location-panel">
+      <h2>Your location</h2>
+      <p class="helper-text">Fastest option: use your current location. You can still search by postcode.</p>
 
-<button type="button" class="category-card" data-category="advice">
-<h2>Advice</h2>
-<p>Housing advice and support services</p>
-</button>
+      <div class="location-actions">
+        <button id="useLocationBtn" class="primary-btn" type="button">Use my current location</button>
+      </div>
 
-<button type="button" class="category-card" data-category="crisis_support">
-<h2>Crisis support</h2>
-<p>Urgent homelessness support services</p>
-</button>
+      <div class="postcode-row">
+        <input id="homePostcodeInput" type="text" placeholder="Enter postcode" />
+        <button id="homePostcodeBtn" class="secondary-btn" type="button">Use postcode</button>
+      </div>
 
-<button type="button" class="category-card" data-category="food">
-<h2>Food</h2>
-<p>Food banks, meals, and community food support</p>
-</button>
+      <p id="homeLocationStatus" class="status-text"></p>
+    </section>
 
-<button type="button" class="category-card" data-category="medical">
-<h2>Medical</h2>
-<p>Health, outreach, and medical support services</p>
-</button>
-</section>
-</main>
-</div>
+    <section>
+      <h2>Choose the kind of help you need</h2>
 
-<script src="./app.js"></script>
+      <div class="category-grid">
+        <button class="category-card" data-category="advice" type="button">
+          <h3>Advice</h3>
+          <p>Housing advice and support services</p>
+        </button>
+
+        <button class="category-card" data-category="crisis_support" type="button">
+          <h3>Crisis support</h3>
+          <p>Urgent homelessness support services</p>
+        </button>
+
+        <button class="category-card" data-category="food" type="button">
+          <h3>Food</h3>
+          <p>Food banks and food support</p>
+        </button>
+
+        <button class="category-card" data-category="medical" type="button">
+          <h3>Medical</h3>
+          <p>Clinics, GP and health support</p>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
 </body>
 </html>

@@ -1,51 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Support Results</title>
-<link rel="manifest" href="./manifest.json" />
-<link rel="stylesheet" href="./styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nearby support</title>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./styles.css" />
 </head>
-<body class="page-results">
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>Nearby support</h1>
+      <p class="subtitle">Find the closest services</p>
+    </div>
+  </header>
 
-<div class="app-shell">
+  <main class="container">
+    <section class="location-panel">
+      <div class="location-actions">
+        <button id="resultsUseLocationBtn" class="primary-btn" type="button">Use my current location</button>
+      </div>
 
-<header class="app-header">
-<div>
-<h1 id="resultsTitle">Nearby support</h1>
-<p id="resultsSubtitle">Find the closest services</p>
-</div>
-<a class="back-link" href="./index.html">← Back</a>
-</header>
+      <div class="postcode-row">
+        <input id="postcodeInput" type="text" placeholder="Enter postcode" />
+        <button id="searchBtn" class="secondary-btn" type="button">Find services</button>
+      </div>
 
-<main class="page-content">
+      <p id="resultsStatus" class="status-text">Enter a postcode or use your current location.</p>
+    </section>
 
-<section class="results-toolbar">
+    <section id="resultsList" class="results-list"></section>
+  </main>
 
-<input
-type="text"
-id="postcodeInput"
-placeholder="Enter postcode (e.g. SE1 2AA)"
-class="postcode-input"
-/>
-
-<button id="searchBtn" class="primary-btn">
-Find services
-</button>
-
-<div id="resultsStatus" class="status-box">
-Ready
-</div>
-
-</section>
-
-<section id="resultsList" class="results-list"></section>
-
-</main>
-
-</div>
-
-<script src="./app.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>

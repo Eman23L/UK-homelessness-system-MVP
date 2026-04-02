@@ -1,69 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Service Details</title>
-
-<link
-rel="stylesheet"
-href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-crossorigin=""
-/>
-
-<link rel="stylesheet" href="./styles.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Service details</title>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./styles.css" />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
 </head>
-<body class="page-service">
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 id="serviceName">Service details</h1>
+      <p class="subtitle" id="serviceOrg">Support service</p>
+    </div>
+  </header>
 
-<div class="app-shell">
-<header class="app-header">
-<div>
-<h1>Service details</h1>
-<p>Route and service information</p>
-</div>
-<a class="back-link" href="./results.html">← Back</a>
-</header>
+  <main class="container">
+    <section class="detail-card">
+      <p><strong>Provider:</strong> <span id="serviceProvider">N/A</span></p>
+      <p><strong>Type:</strong> <span id="serviceType">N/A</span></p>
+      <p><strong>Postcode:</strong> <span id="servicePostcode">N/A</span></p>
+      <p><strong>Phone:</strong> <span id="servicePhone">N/A</span></p>
+      <p><strong>Address:</strong> <span id="serviceAddress">N/A</span></p>
+      <p><strong>Opening times:</strong> <span id="serviceOpening">N/A</span></p>
+      <p><strong>Description:</strong> <span id="serviceDescription">N/A</span></p>
+      <p><strong>Source:</strong> <a id="serviceSource" href="#" target="_blank" rel="noopener noreferrer">Open source</a></p>
 
-<main class="service-layout">
-<aside class="service-sidebar">
-<div class="service-card">
-<h2 id="serviceName">Loading...</h2>
+      <div class="service-actions">
+        <a id="openMapsBtn" class="primary-btn" href="#" target="_blank" rel="noopener noreferrer" style="display:none;">
+          Open in Google Maps directions
+        </a>
+      </div>
 
-<p><strong>Organisation:</strong> <span id="serviceOrg">Loading...</span></p>
-<p><strong>Source:</strong> <span id="serviceProvider">Loading...</span></p>
-<p><strong>Type:</strong> <span id="serviceType">Loading...</span></p>
-<p><strong>Postcode:</strong> <span id="servicePostcode">Loading...</span></p>
-<p><strong>Phone:</strong> <span id="servicePhone">Loading...</span></p>
-<p><strong>Address:</strong> <span id="serviceAddress">Loading...</span></p>
-<p><strong>Opening times:</strong> <span id="serviceOpening">Loading...</span></p>
-<p><strong>Description:</strong> <span id="serviceDescription">Loading...</span></p>
+      <p id="routeStatus" class="status-text"></p>
+    </section>
 
-<p>
-<a id="serviceSource" href="#" target="_blank" rel="noopener noreferrer">View source</a>
-</p>
+    <section class="detail-card">
+      <div id="serviceMap" class="service-map"></div>
+    </section>
+  </main>
 
-<p>
-<a id="openMapsBtn" href="#" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
-</p>
-</div>
-
-<div class="service-card">
-<h3>Directions</h3>
-<div id="routeStatus" class="status-box">Loading route...</div>
-</div>
-</aside>
-
-<section class="service-map-section">
-<div id="serviceMap"></div>
-</section>
-</main>
-</div>
-
-<script
-src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-crossorigin=""
-></script>
-<script src="./app.js"></script>
-
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+  <script src="./app.js"></script>
 </body>
 </html>
