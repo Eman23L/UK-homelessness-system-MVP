@@ -290,22 +290,32 @@ function initResultsPage() {
     }
 
     filtered.slice(0, 10).forEach(service => {
-      const card = document.createElement("div");
-      card.className = "result-card";
+const card = document.createElement("div");
+card.className = "result-card";
 
-      card.innerHTML = `
-        <h3>${service.name || "Unknown service"}</h3>
-        <p>${service.postcode || ""}</p>
-        <p>${service.distance.toFixed(2)} km away</p>
-        <button class="primary-btn view-btn">View route</button>
-      `;
+const categoryLabel = mapServiceToCategory(service)
+  .replace("_", " ")
+  .replace(/\b\w/g, (char) => char.toUpperCase());
 
-      card.querySelector(".view-btn").addEventListener("click", () => {
-        saveSelectedService(service);
-        window.location.href = "./service.html";
-      });
+card.innerHTML = `
+  <h3>${service.name || "Unknown service"}</h3>
+  <div class="result-meta">
+    <span><strong>Category:</strong> ${categoryLabel}</span>
+    <span><strong>Postcode:</strong> ${service.postcode || "N/A"}</span>
+    <span><strong>Distance:</strong> ${service.distance.toFixed(2)} km</span>
+</div>
+<div class="result-actions">
+  <button class="primary-btn view-btn">View details</button>
+</div>
+`;
 
-      list.appendChild(card);
+card.querySelector(".view-btn").addEventListener("click", () => {
+saveSelectedService(service);
+window.location.href = "./service.html";
+});
+
+list.appendChild(card);
+
     });
   }
 
