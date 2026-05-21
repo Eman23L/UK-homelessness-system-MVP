@@ -283,7 +283,7 @@ function initResultsPage() {
 
     if (!filtered.length) {
       status.textContent =
-        `No ${category.replace("_", " ")} services found yet — showing nearest services instead.`;
+        `No ${category.replace("_", " ")} services found yet - showing nearest services instead.`;
       filtered = all;
     } else {
       status.textContent = `${filtered.length} services shown`;
@@ -420,7 +420,7 @@ function initServicePage() {
         [service.latitude, service.longitude]
       ],
       {
-        color: "#2563eb",
+        color: "#4d8f68",
         weight: 4,
         opacity: 0.8
       }
